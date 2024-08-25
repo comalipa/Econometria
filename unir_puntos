@@ -1,0 +1,30 @@
+#importamos la libreria para los cálculos
+import matplotlib.pyplot as plt
+
+#valores para el eje x
+
+años =[1972,1973,1974,1975,1976,1977,1978,1979,1980]
+
+#valores para el eje y
+#población de vacuno
+
+pv=[4039.6,4102.6,4143.6,4165.8,4188.6,4229.5,4269.8,4305.4,4341.7]
+
+#construimos el grafico
+
+plt.plot(años,pv,color='green',marker='o',linestyle='solid')
+
+#Titulo del grafico
+
+plt.title("Población Ganado Vacuno")
+
+#nombre del eje x
+
+plt.xlabel('años')
+
+#nombre del eje y
+plt.ylabel('miles de cabezas')
+
+#mostramos el grafico
+
+plt.show()
