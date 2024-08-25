@@ -1,0 +1,30 @@
+#Importamos las librerías
+
+import pandas as pd 
+import matplotlib.pyplot as plt
+
+#construimos el DataFrame con los datos
+
+df = pd.DataFrame({'años':[1972,1973,1974,1975,1976,1977,1978,1979,1980], 
+                   'miles de cabezas vacunos':[4040,4103,4144,4166,
+                                               4189,4230,4270,4305,4342], 
+                   'miles de dosis vacunas':[3925,4010,4029,3959,4024,
+                                             4090,3951,3465,3254]})
+
+#construimos los dos gráficos
+
+fig, ax = plt.subplots()
+
+#Ponemos un título a la gráfica
+
+Plt.title(‘Grafico N° 3’)
+
+#En el eje x mostramos los años y en el eje y las cantidades correspondientes
+#En la parte interna del gráfico su correspondiente leyenda.
+
+df.plot(x = 'años', y = 'miles de cabezas vacunos', color='green',marker='o',ax = ax)
+df.plot(x = 'años', y = 'miles de dosis vacunas',color='blue', marker='o',ax = ax)
+
+#Mostramos el gr’afico.
+
+plt.show()
