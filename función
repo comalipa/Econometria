@@ -1,0 +1,71 @@
+#importamos las librerías
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Datos según la tabla original, los años como periodos t
+
+x = np.array([4039.6, 4102.6, 4143.6, 4165.8, 4188.6, 4229.5, 4269.8, 4305.4, 4341.7])
+t = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+
+def analizar_datos(t, x):
+    """
+    Analiza los datos proporcionados mostrando la sumatoria de columnas, el intercepto y la pendiente de la recta de ajuste, graficando la recta de ajuste.
+    
+    Args:
+    t (array-like): Valores de la variable independiente.
+    x (array-like): Valores de la variable dependiente.
+    """
+    # Calcular la sumatoria de columnas
+    sum_t = np.sum(t)
+    sum_x = np.sum(x)
+    sum_xt= np.sum(x*t)
+    sum_t2=np.sum(t**2)
+    sum_x2= np.sum(x**2)
+    
+    # Ajustamos una recta (polinomio de grado 1) a los datos
+    
+coeficientes = np.polyfit(t, x, 1)
+    pendiente, intercepto = coeficientes
+    
+    
+# Predicciones usando la recta de ajuste
+    
+x_ajustado = np.polyval(coeficientes, t)
+    
+    # Mostrar resultados
+    
+print(f"Sumatoria de t: {sum_t}")
+    print(f"Sumatoria de x: {sum_x}")
+    print(f"Sumatoria de xt: {sum_xt}")
+    print(f"Sumatoria de t al cuadrado: {sum_t2}")
+    print(f"Sumatoria de x al cuadrado: {sum_x2}")
+    print(f"Pendiente de la recta de ajuste: {pendiente}")
+    print(f"Intercepto de la recta de ajuste: {intercepto}")
+    print(f'Recta de ajuste: X = {intercepto:.4f}+{pendiente}t')
+    
+
+    # Graficar los resultados
+    
+plt.scatter(t, x, color='red', label='Datos originales')
+    plt.plot(t, x_ajustado, color='blue', label='Recta de ajuste')
+    plt.xlabel('Periodos')
+    plt.ylabel('Miles Cabezas Ganado')
+    plt.legend()
+    plt.title('Ajuste Lineal a los Datos')
+    plt.show()
+
+# Llamar a la función con los datos de la tabla original.
+
+analizar_datos(t, x)
+
+Mostrará los siguientes resultados(el intercepto se puede redondear a tres decimales igual que la pendiente):
+
+Sumatoria de t: 36
+Sumatoria de x: 37786.600000000006
+Sumatoria de xt: 153279.30000000002
+Sumatoria de t al cuadrado: 204
+Sumatoria de x al cuadrado: 158724065.82
+Pendiente de la recta de ajuste: 35.54833333333309
+Intercepto de la recta de ajuste: 4056.3177777777796
+Recta de ajuste: X = 4056.3178+35.54833333333309t
