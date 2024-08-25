@@ -1,0 +1,25 @@
+#Importamos la libreria
+
+import matplotlib.pyplot as plt
+
+años = [1972,1973,1974,1975,1976,1977,1978,1979,1980]
+
+vacunas = [3924.5,4009.6,4028.9,3958.8,4024.2,4089.9,3950.7,3464.7,3254.4]
+
+#construimos el grafico
+
+plt.plot(años,vacunas,color='green',marker='o',linestyle='solid')
+
+#Titulo del grafico
+
+plt.title("Vacunas")
+
+#nombre del eje x
+
+plt.xlabel('años')
+
+#nombre del eje y
+
+plt.ylabel('miles de dosis')
+
+plt.show()
