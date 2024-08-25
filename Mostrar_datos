@@ -1,0 +1,16 @@
+#importamos las librerias a utilizar
+
+import pandas as pd 
+import matplotlib.pyplot as plt
+
+#construimos el DataFrame con los datos
+
+df = pd.DataFrame({'años':[1972,1973,1974,1975,1976,1977,1978,1979,1980], 
+                   'miles de cabezas vacunos':[4039.6,4102.6,4143.6,4165.8,
+                                               4188.6,4229.5,4269.8,4305.4,4341.7], 
+                   'miles de dosis vacunas':[3924.5,4009.6,4028.9,3958.8,4024.2,
+                                             4089.9,3950.7,3464.7,3254.4]})
+
+#construimos la tabla de datos
+
+print(df)
