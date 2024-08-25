@@ -1,0 +1,548 @@
+ETAPAS DEL PROCESO ECONOMETRICO
+
+El presente ejercicio, toma los datos del libro: Curso de Econometría I del profesor Jorge Garcia Toledo. Libro que pertenece a mi biblioteca personal.
+
+Se hace uso del lenguaje de programación Python 3.9 y el editor de código Spyder 5. Las librerías de python están especificadas, pueden buscar en la web para ahondar sus conocimientos.
+
+El ejercicio esta desarrollado en forma simple hasta una programación más elaborada con librerías Scipy para el soporte econométrico. Se debe tomar en cuenta la instalación correspondiente del lenguaje y sus correspondientes librerías. En mi caso, uso el sistema operativo UBUNTU 24.04.4 LTS; pero en Windows se puede instalar.
+
+La investigación econométrica presenta cuatro etapas:
+
+1.Especificación del modelo.
+2.Estimación del modelo.
+3.Evaluación o verificación de los estimadores.
+4.Predicción o proyección estadística.
+
+Se tiene los siguientes datos sobre ganado vacuno y la producción de vacunas Antiaftosa:
+
+Años		Población(miles de cabezas)	Producción de vacunas(miles de dosis)
+1972	  4039.6							              3924.5
+1973	  4102.6							              4009.6
+1974	  4143.6							              4028.9
+1975    4165.8                            3958.8
+1976    4188.6                            4024.2
+1977    4229.8                            4089.9
+1978    4269.8                            3950.7
+1979    4305.4                            3464.7
+1980    4341.7                            3254.4
+
+Veamos el comportamiento de los datos y la tendencia, a fin de especificar un modelo. Estos datos pueden ser tratados desde una tabla xlsx(excel), csv o mediante listas. 
+En este caso usaremos listas en pandas.
+
+#importamos las librerias a utilizar
+
+import pandas as pd 
+import matplotlib.pyplot as plt
+
+#construimos el DataFrame con los datos
+
+df = pd.DataFrame({'años':[1972,1973,1974,1975,1976,1977,1978,1979,1980], 
+                   'miles de cabezas vacunos':[4039.6,4102.6,4143.6,4165.8,
+                                               4188.6,4229.5,4269.8,4305.4,4341.7], 
+                   'miles de dosis vacunas':[3924.5,4009.6,4028.9,3958.8,4024.2,
+                                             4089.9,3950.7,3464.7,3254.4]})
+
+#construimos la tabla de datos
+
+print(df)
+
+
+
+
+
+
+Obtenemos la siguiente tabla:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mostramos los datos de la población vacunos uniendo los puntos con una línea.
+
+#importamos la libreria para los cálculos
+import matplotlib.pyplot as plt
+
+#valores para el eje x
+
+años =[1972,1973,1974,1975,1976,1977,1978,1979,1980]
+
+#valores para el eje y
+#población de vacuno
+
+pv=[4039.6,4102.6,4143.6,4165.8,4188.6,4229.5,4269.8,4305.4,4341.7]
+
+#construimos el grafico
+
+plt.plot(años,pv,color='green',marker='o',linestyle='solid')
+
+#Titulo del grafico
+
+plt.title("Población Ganado Vacuno")
+
+#nombre del eje x
+
+plt.xlabel('años')
+
+#nombre del eje y
+plt.ylabel('miles de cabezas')
+
+#mostramos el grafico
+
+plt.show()
+
+El gráfico muestra la unión de cada uno de los puntos, lo cual nos permite concluir que la tendencia de la población de vacunos es creciente y se puede ajustar a una recta. Más adelante mostraremos los resultados correspondientes. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mostramos los datos para las vacunas.
+
+#Importamos la libreria
+
+import matplotlib.pyplot as plt
+
+años = [1972,1973,1974,1975,1976,1977,1978,1979,1980]
+
+vacunas = [3924.5,4009.6,4028.9,3958.8,4024.2,4089.9,3950.7,3464.7,3254.4]
+
+#construimos el grafico
+
+plt.plot(años,vacunas,color='green',marker='o',linestyle='solid')
+
+#Titulo del grafico
+
+plt.title("Vacunas")
+
+#nombre del eje x
+
+plt.xlabel('años')
+
+#nombre del eje y
+
+plt.ylabel('miles de dosis')
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+El gráfico N° 2 muestra una tendencia decreciente de las dosis de vacunas, lo cual nos permite descartar el ajuste rectilíneo.
+
+Finalmente, mostramos los dos gráficos y apreciar con mayor detalle el comportamiento a fin de especificar un modelo. Elegimos trabajar con el ganado vacuno por sus características gráficas(tendencia), dado que las vacunas tienen tendencia decreciente y podemos concluir con algunas recomendaciones.
+
+#Importamos las librerías
+
+import pandas as pd 
+import matplotlib.pyplot as plt
+
+#construimos el DataFrame con los datos
+
+df = pd.DataFrame({'años':[1972,1973,1974,1975,1976,1977,1978,1979,1980], 
+                   'miles de cabezas vacunos':[4040,4103,4144,4166,
+                                               4189,4230,4270,4305,4342], 
+                   'miles de dosis vacunas':[3925,4010,4029,3959,4024,
+                                             4090,3951,3465,3254]})
+
+#construimos los dos gráficos
+
+fig, ax = plt.subplots()
+
+#Ponemos un título a la gráfica
+
+Plt.title(‘Grafico N° 3’)
+
+#En el eje x mostramos los años y en el eje y las cantidades correspondientes
+#En la parte interna del gráfico su correspondiente leyenda.
+
+df.plot(x = 'años', y = 'miles de cabezas vacunos', color='green',marker='o',ax = ax)
+df.plot(x = 'años', y = 'miles de dosis vacunas',color='blue', marker='o',ax = ax)
+
+#Mostramos el gr’afico.
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Se observa que la población de ganado vacuno tiene una tendencia creciente, mientras que las dosis de vacunas tiene tendencia decreciente muy pronunciada.
+
+ESPECIFICACION DEL MODELO
+
+En este caso, la tendencia de crecimiento de X  es por el factor tiempo que lo asumimos como una variable exógena y explica el comportamiento de X. Entonces la especificación del modelo es: Xt = a + bt 
+
+Como alternativa de X, se puede tomar en cuenta el producto bruto interno del sector agropecuario (PBIA).
+
+El análisis cualitativo que se puede tomar al observar los gráficos nos revela que existe algo que puede generar problemas en el ganado vacuno por la tendencia decreciente de las dosis de vacunas. Para este propósito, es necesario un análisis cuantitativo, que indicará que comportamiento debe tener la cantidad de vacunas para no generar problemas. 
+
+Esta primera etapa consiste en interpretar las relaciones a priori postuladas en la teoría económica para definir el modelo apropiadamente. Esta intuición no es una buena guía para comprender el comportamiento de los datos, necesitamos una metodología para encontrar respuestas significativas acerca de los patrones de comportamiento de los datos a estudiar. 
+
+ESTIMACIÓN DEL MODELO
+
+La segunda etapa hacemos uso de la teoría estadística para estimar la función matemática sin perder de vista el punto de partida que es la economía. Como es dado por valida la especificación del modelo, se propone el método de estimación para obtener parámetros que ayuden a explicar el comportamiento de los datos analizados. 
+
+Utilizando las ecuaciones normales:  
+
+
+
+
+
+
+
+
+
+Vamos a estimar los parámetros a y b.
+
+Convertimos las variables población de vacuno a x, el tiempo a t, t2 = t**2, x2= x**2
+
+Haciendo uso del lenguaje python, obtenemos los siguientes resultados en la taba siguiente:
+
+import pandas as pd 
+df=pd.DataFrame()
+
+#construimos el DataFrame con los datos
+
+df = pd.DataFrame({'x':[4039.6,4102.6,413.6,4165.8,
+                    4188.6,4229.5,4269.8,4305.4,4341.7], 
+                   't':[0,1,2,3,4,5,6,7,8]})
+
+#adicionando columnas
+
+df['x*t'] = df['x'] * df['t']
+df['t**2'] = df['t'] *df['t']
+df['x**2'] = df['x'] *df['x']
+#sumatoria de las columnas
+df.loc['Total']=df.sum()
+
+print(df)
+
+
+x        t       x*t        t**2           x**2 
+0    4039.6   0.0     0.0        0.0        16318368.16 
+1    4102.6   1.0    4102.6      1.0        16831326.76 
+2    4143.6   2.0    8287.2      4.0        17169420.96 
+3    4165.8   3.0   12497.4      9.0        17353889.64 
+4    4188.6   4.0   16754.4     16.0        17544369.96 
+5    4229.5   5.0   21147.5     25.0        17888670.25 
+6    4269.8   6.0   25618.8     36.0        18231192.04 
+7    4305.4   7.0   30137.8     49.0        18536469.16 
+8    4341.7   8.0   34733.6     64.0        18850358.89 
+Total 37786.6  36.0  153279.3   204.0       158724065.82
+
+Aplicando las ecuaciones normales, tenemos:
+
+37786.6 = 9a + 36b
+153279.3 = 36a + 204b
+
+Multiplicando la primera ecuación por (-4) para aplicar la reducción, tenemos lo siguiente:
+
+151146.4 = - 36a - 144b
+153279.3 =  36a + 204b
+2132.9 =         60b 
+b = 35.548 
+
+El parámetro b, representa la tasa del crecimiento promedio del ganado vacuno.
+Ahora calcular el parámetro a:
+
+9a = 37786.6 - 36(35.548)
+9a = 37786.6 - 1279.728
+a = 4056.319
+
+El parámetro a, representa la población de ganado vacuno inicial estimada.
+
+El modelo Xt = a + bt queda expresada de la siguiente forma:
+
+X = 4056.319 + 35.548t
+
+El modelo puede interpretarse de la siguiente manera: “dada una oferta mínima de ganado vacuno de 4’056319; por cada año adicional, la población de ganado vacuno aumenta en 35 648 cabezas de ganado.
+
+VERIFICACIÓN
+
+En este caso aplicamos las fórmulas de la desviación estándar, el índice de estimación(E) y el coeficiente de correlación(R) que nos da el grado de ajuste, entre la variable dependiente y la variable independiente.
+
+
+
+     E =
+
+
+
+
+     E =
+
+
+
+E =  
+
+
+E = 
+
+E = 9.367
+
+La estimación de los datos reales nos da un margen de error de 9367 cabezas de ganado; por lo tanto, nuestra estimación inicial se comporta:
+
+
+
+Ahora necesitamos calcular el coeficiente de correlación para ver el grado de ajuste entre las variables dependiente e independiente.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              R = 0.994864
+
+
+Los resultados muestran una muy buena correlación entre x(ganado vacuno) y t(tiempo), con un 99.5 de ajuste lineal.
+
+
+
+
+
+
+
+
+
+
+
+
+Otra forma de operar con el código en python sería lo siguiente:
+
+Para una forma rápida, de obtención de los datos, en el lenguaje python, se puede usar la librería Scipy. Esta es una librería o biblioteca interfaces a librerías científicas, de esta manera, obtenemos los datos como parámetros, coeficiente de pendiente, coeficiente de intersección, los valores de ajuste de la recta. Note que obtenemos los valores sin el paso a paso como lo hemos desarrollado anteriormente.
+
+#importamos la librerias
+
+import numpy as np
+from scipy.stats import linregress
+
+# Los datos de la tabla
+
+x = np.array([4039.6, 4102.6, 4143.6, 4165.8, 4188.6, 4229.5, 
+              4269.8, 4305.4, 4341.7])
+t = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+
+#obtenemos el valor n (numero de datos)
+
+n=len(t)
+
+#Calculamos las sumatorias
+Sum_x=sum(x)
+Sum_t=sum(t)
+Sum_xx=sum(x**2)
+Sum_xt=sum(x*t)
+Sum_tt=sum(t**2)
+
+#Mostramos los valores de las sumatorias 
+
+print(Sum_x,Sum_t,Sum_xt,Sum_tt,Sum_xx)
+
+# Ajustar la regresión lineal
+#f"Coeficiente de pendiente: {slope}
+#f"Coeficiente de intersección: {intercept}"
+#f"Coeficiente de correlación: {r_value}"
+#f"Valor p: {p_value}"
+#f"Error estándar: {std_err}"
+
+slope, intercept, r_value, p_value, std_err = linregress(t, x)
+
+# Coeficiente de correlación
+correlacion = r_value
+
+# Imprimir los resultados
+#imprimir coeficiente de correlación
+
+print(f'Coeficiente de correlación: {correlacion:.4f}')
+
+#imprimir la recta de ajuste
+ 
+print(f'Recta de ajuste: X = {intercept:.4f}+{slope:.4f}t')
+
+#imprimir R de la regresión
+
+print(f'Valor R^2 de la regresión: {r_value**2:.4f}') 
+
+Obtenemos los siguientes resultados:
+
+37786.6 36 153279.30000000002 204 158724065.82
+Coeficiente de correlación: 0.9949
+Recta de ajuste: X = 4056.3178+35.5483t
+Valor R^2 de la regresión: 0.9898
+
+
+
+PROYECCION
+
+Los resultados obtenidos muestran error(E) bastante bajo y un R cercano a la unidad, nos permite realizar una proyección estadística, reemplazamos valores en: Xt = a + bt
+
+Para  t          Xt = a + bt              Xt proyectado
+
+1981  t = 9   X9 = 4056.3 + 35.548(9)     4376.232
+1982  t =10  X10 = 4056.3 + 35.548(10)    4411.780
+1983  t =11  X11 = 4056.3 + 35.548(11)    4447.326
+1984  t =10  X12 = 4056.3 + 35.548(12)    4482.876
+1985  t =11  X13 = 4056.3 + 35.548(13)    4518.424
+
+
+
+
+
+Finalmente, después de haber hecho paso a paso, implementamos el código como un experto creando una función:
+
+#importamos las librerías
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Datos según la tabla original, los años como periodos t
+
+x = np.array([4039.6, 4102.6, 4143.6, 4165.8, 4188.6, 4229.5, 4269.8, 4305.4, 4341.7])
+t = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+
+def analizar_datos(t, x):
+    """
+    Analiza los datos proporcionados mostrando la sumatoria de columnas, el intercepto y la pendiente de la recta de ajuste, graficando la recta de ajuste.
+    
+    Args:
+    t (array-like): Valores de la variable independiente.
+    x (array-like): Valores de la variable dependiente.
+    """
+    # Calcular la sumatoria de columnas
+    sum_t = np.sum(t)
+    sum_x = np.sum(x)
+    sum_xt= np.sum(x*t)
+    sum_t2=np.sum(t**2)
+    sum_x2= np.sum(x**2)
+    
+    # Ajustamos una recta (polinomio de grado 1) a los datos
+    
+coeficientes = np.polyfit(t, x, 1)
+    pendiente, intercepto = coeficientes
+    
+    
+# Predicciones usando la recta de ajuste
+    
+x_ajustado = np.polyval(coeficientes, t)
+    
+    # Mostrar resultados
+    
+print(f"Sumatoria de t: {sum_t}")
+    print(f"Sumatoria de x: {sum_x}")
+    print(f"Sumatoria de xt: {sum_xt}")
+    print(f"Sumatoria de t al cuadrado: {sum_t2}")
+    print(f"Sumatoria de x al cuadrado: {sum_x2}")
+    print(f"Pendiente de la recta de ajuste: {pendiente}")
+    print(f"Intercepto de la recta de ajuste: {intercepto}")
+    print(f'Recta de ajuste: X = {intercepto:.4f}+{pendiente}t')
+    
+
+    # Graficar los resultados
+    
+plt.scatter(t, x, color='red', label='Datos originales')
+    plt.plot(t, x_ajustado, color='blue', label='Recta de ajuste')
+    plt.xlabel('Periodos')
+    plt.ylabel('Miles Cabezas Ganado')
+    plt.legend()
+    plt.title('Ajuste Lineal a los Datos')
+    plt.show()
+
+# Llamar a la función con los datos de la tabla original.
+
+analizar_datos(t, x)
+
+Mostrará los siguientes resultados(el intercepto se puede redondear a tres decimales igual que la pendiente):
+
+Sumatoria de t: 36
+Sumatoria de x: 37786.600000000006
+Sumatoria de xt: 153279.30000000002
+Sumatoria de t al cuadrado: 204
+Sumatoria de x al cuadrado: 158724065.82
+Pendiente de la recta de ajuste: 35.54833333333309
+Intercepto de la recta de ajuste: 4056.3177777777796
+Recta de ajuste: X = 4056.3178+35.54833333333309t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
